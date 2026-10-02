@@ -1,0 +1,1 @@
+"""Resumes domain module."""

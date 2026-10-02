@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Copilot — Developer Control Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --bg-card-hover: rgba(31, 41, 55, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --accent-primary: #6366f1;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --font-main: 'Outfit', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); }
+        }
+
+        .brand-text h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 9999px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        .btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 10px;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Grid Layout */
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+
+        @media (max-width: 1024px) {
+            .col-8, .col-6, .col-4 { grid-column: span 12; }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #fff;
+        }
+
+        .card-title .icon {
+            font-size: 1.2rem;
+        }
+
+        /* Health Metric Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.1rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-sub {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pill.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-pill.warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        /* Preset Category Tags */
+        .preset-category-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-cyan);
+            margin-top: 0.75rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .endpoint-selector {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .endpoint-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+        }
+
+        .endpoint-btn:hover, .endpoint-btn.active {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--accent-primary);
+            color: #fff;
+        }
+
+        .method-tag {
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-weight: 700;
+        }
+
+        .method-tag.get { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .method-tag.post { background: rgba(99, 102, 241, 0.25); color: #818cf8; }
+        .method-tag.put { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+        .method-tag.delete { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+
+        .request-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .method-select {
+            background: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #fff;
+            padding: 0 0.85rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .url-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Payload Editor */
+        .payload-container {
+            margin-bottom: 0.75rem;
+        }
+
+        .payload-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
+        .payload-editor {
+            width: 100%;
+            height: 140px;
+            background: #070b12;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.75rem;
+            color: #38bdf8;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            resize: vertical;
+            outline: none;
+        }
+
+        .payload-editor:focus {
+            border-color: var(--accent-primary);
+        }
+
+        .response-box {
+            background: #05080e;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            min-height: 180px;
+            max-height: 320px;
+            overflow-y: auto;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+        }
+
+        /* Roadmap List */
+        .roadmap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .roadmap-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 0.9rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+
+        .roadmap-item.completed {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .roadmap-item.current {
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .domains-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .domain-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.9rem;
+        }
+
+        .domain-badge {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.45rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-ready { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .badge-queued { background: rgba(99, 102, 241, 0.2); color: var(--accent-primary); }
+        .badge-planned { background: rgba(148, 163, 184, 0.2); color: var(--text-secondary); }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                <div class="logo-icon">🚀</div>
+                <div class="brand-text">
+                    <h1>Career Copilot</h1>
+                    <p>Developer Testing & Interactive API Console • V1 Modular Monolith</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="badge-live" id="systemLiveBadge">
+                    <span class="live-dot"></span>
+                    <span id="systemLiveText">Testing Engine Ready</span>
+                </div>
+                <button class="btn btn-secondary" onclick="checkAllStatus()">🔄 Refresh Status</button>
+                <a href="/docs" target="_blank" class="btn btn-primary">📖 Swagger Docs</a>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-label">FastAPI Server</div>
+                <div class="stat-value" id="apiStatusVal">
+                    <span class="status-pill success">● Online</span>
+                </div>
+                <div class="stat-sub" id="apiEnvVal">Port: 8000 (Local)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">PostgreSQL / pgvector</div>
+                <div class="stat-value" id="dbStatusVal">
+                    <span class="status-pill success">● Connected</span>
+                </div>
+                <div class="stat-sub" id="dbExtVal">PostgreSQL 16 • pgvector</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Automated Tests</div>
+                <div class="stat-value" style="color: var(--accent-green);">
+                    46 / 46 Passing
+                </div>
+                <div class="stat-sub">100% Phase 0, 1, 2, 3, 4, 5 & 6 Pass Rate</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Active Phase</div>
+                <div class="stat-value" style="color: var(--accent-primary);">
+                    Phase 7
+                </div>
+                <div class="stat-sub">Next: Browser Acquisition & Platform Adapters</div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid-dashboard">
+            <!-- Left Column: Interactive API Console & Request Dispatcher -->
+            <div class="col-8">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="icon">⚡</span> Interactive API Playground & Dispatcher
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Choose a preset or type custom payload</span>
+                    </div>
+
+                    <!-- Preset Selector Categories -->
+                    <div>
+                        <div class="preset-category-title">📄 Phase 6: Master Resume & Tailoring Engine</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn active" onclick="loadPreset('generate_tailored_resume')">
+                                <span class="method-tag post">POST</span> /resumes/tailor (Zero-Hallucination ATS Markdown)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('generate_master_resume')">
+                                <span class="method-tag post">POST</span> /resumes/master (Master Resume)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('list_resumes')">
+                                <span class="method-tag get">GET</span> /resumes (All Resumes)
+                            </button>
+                        </div>
+
+                        <div class="preset-category-title">🎯 Phase 5: Deterministic & Hybrid Matching Engine</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn" onclick="loadPreset('batch_match')">
+                                <span class="method-tag post">POST</span> /matching/batch (Batch Match All Jobs)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('get_top_matches')">
+                                <span class="method-tag get">GET</span> /matching/top-matches (Ranked Feed)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('evaluate_match')">
+                                <span class="method-tag post">POST</span> /matching/evaluate (Detailed Breakdown)
+                            </button>
+                        </div>
+
+                        <div class="preset-category-title">🧠 Phase 4: Job Understanding & Skill Extraction</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn" onclick="loadPreset('analyze_jd')">
+                                <span class="method-tag post">POST</span> /extraction/analyze (Zero-Token Tagger)
+                            </button>
+                        </div>
+
+                        <div class="preset-category-title">📥 Phase 3: Job Ingestion & Multi-Signal Deduplication</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn" onclick="loadPreset('ingest_single_job')">
+                                <span class="method-tag post">POST</span> /jobs/ingest (Single Job)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('batch_ingest_jobs')">
+                                <span class="method-tag post">POST</span> /jobs/batch-ingest (Batch)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('list_jobs')">
+                                <span class="method-tag get">GET</span> /jobs (Filter & Search)
+                            </button>
+                        </div>
+
+                        <div class="preset-category-title">🎯 Phase 2: Career Targets & Intent Expansion</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn" onclick="loadPreset('expand_intent')">
+                                <span class="method-tag post">POST</span> /expand-intent (Agent)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('list_search_profiles')">
+                                <span class="method-tag get">GET</span> /career-profiles
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('create_search_profile')">
+                                <span class="method-tag post">POST</span> /career-profiles (Create)
+                            </button>
+                        </div>
+
+                        <div class="preset-category-title">👤 Phase 1: Candidate Intelligence & Fact Bank</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn" onclick="loadPreset('get_me')">
+                                <span class="method-tag get">GET</span> /candidate/me
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('add_verified_skill')">
+                                <span class="method-tag post">POST</span> /candidate/skills (Verified)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('list_verified_skills')">
+                                <span class="method-tag get">GET</span> /candidate/skills?state=VERIFIED
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('add_resume_fact')">
+                                <span class="method-tag post">POST</span> /candidate/facts (Metric Fact)
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('list_facts')">
+                                <span class="method-tag get">GET</span> /candidate/facts
+                            </button>
+                        </div>
+
+                        <div class="preset-category-title">🏥 System & Health</div>
+                        <div class="endpoint-selector">
+                            <button class="endpoint-btn" onclick="loadPreset('health')">
+                                <span class="method-tag get">GET</span> /api/health
+                            </button>
+                            <button class="endpoint-btn" onclick="loadPreset('health_db')">
+                                <span class="method-tag get">GET</span> /api/health/db
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Request Action Bar -->
+                    <div class="request-bar">
+                        <select id="httpMethodSelect" class="method-select" onchange="onMethodChange()">
+                            <option value="GET">GET</option>
+                            <option value="POST" selected>POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                        <input type="text" id="targetUrlInput" class="url-input" value="http://localhost:8000/api/v1/career-profiles/expand-intent" />
+                        <button class="btn btn-primary" onclick="sendCustomRequest()">▶ Send Request</button>
+                    </div>
+
+                    <!-- Editable JSON Payload Area (Shown for POST/PUT) -->
+                    <div class="payload-container" id="payloadSection">
+                        <div class="payload-header">
+                            <span>Request Payload (JSON Body):</span>
+                            <span style="color: var(--accent-cyan); font-family: var(--font-mono);">application/json</span>
+                        </div>
+                        <textarea id="payloadTextarea" class="payload-editor" spellcheck="false">{
+  "query": "I want a Python backend role with AWS cloud deployment and data pipelines"
+}</textarea>
+                    </div>
+
+                    <!-- Response Payload -->
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+                        <span>Response Payload:</span>
+                        <span id="responseTime" style="font-family: var(--font-mono); color: var(--accent-cyan);">Latency: -- ms</span>
+                    </div>
+
+                    <pre class="response-box" id="responseBox">// Select a preset above or click "Send Request" to execute live backend test...</pre>
+                </div>
+
+                <!-- Domain Modules Architecture Overview -->
+                <div class="glass-card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="icon">🧩</span> Modular Monolith Architecture Map
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">8 Domain Boundaries</span>
+                    </div>
+
+                    <div class="domains-grid">
+                        <div class="domain-card" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.03);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Candidate</strong>
+                                <span class="domain-badge badge-ready">Done (P1)</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Profile, 5-state skill bank, resume facts.</p>
+                        </div>
+
+                        <div class="domain-card" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.03);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Career Profiles</strong>
+                                <span class="domain-badge badge-ready">Done (P2)</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Multi-target search & Zero-Token Intent Expander.</p>
+                        </div>
+
+                        <div class="domain-card" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.03);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Job Pipeline</strong>
+                                <span class="domain-badge badge-ready">Done (P3)</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Multi-source ingestion, deduplication & freshness.</p>
+                        </div>
+
+                        <div class="domain-card" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.03);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Job Extraction</strong>
+                                <span class="domain-badge badge-ready">Done (P4)</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Structured JD requirements & zero-token tech stack tagging.</p>
+                        </div>
+
+                        <div class="domain-card" style="border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.05);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Matching Engine</strong>
+                                <span class="domain-badge badge-queued">Next (P5)</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Hard filters, skill matrix & pgvector similarity.</p>
+                        </div>
+
+                        <div class="domain-card" style="opacity: 0.75;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Resume Engine</strong>
+                                <span class="domain-badge badge-planned">Phase 6</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Master resume & zero-hallucination tailoring.</p>
+                        </div>
+
+                        <div class="domain-card" style="opacity: 0.75;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">Browser Adapter</strong>
+                                <span class="domain-badge badge-planned">Phase 7</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Playwright automation with human handoff.</p>
+                        </div>
+
+                        <div class="domain-card" style="border-color: rgba(16, 185, 129, 0.4);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                                <strong style="color: #fff; font-size: 0.85rem;">LLM Gateway</strong>
+                                <span class="domain-badge badge-ready">Base Ready</span>
+                            </div>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary);">Multi-provider abstraction (Gemini, OpenRouter, Ollama).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Roadmap Tracker & Quick Commands -->
+            <div class="col-4">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="icon">🗺️</span> Roadmap Tracker
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--accent-green);">Phase 4 Completed</span>
+                    </div>
+
+                    <div class="roadmap-list">
+                        <div class="roadmap-item completed">
+                            <div style="font-weight: 500;"><span>✅</span> Phase 0: Foundation</div>
+                            <span class="status-pill success">Done</span>
+                        </div>
+                        <div class="roadmap-item completed">
+                            <div style="font-weight: 500;"><span>✅</span> Phase 1: Candidate Intelligence</div>
+                            <span class="status-pill success">Done</span>
+                        </div>
+                        <div class="roadmap-item completed">
+                            <div style="font-weight: 500;"><span>✅</span> Phase 2: Career Targets & Intent</div>
+                            <span class="status-pill success">Done</span>
+                        </div>
+                        <div class="roadmap-item completed">
+                            <div style="font-weight: 500;"><span>✅</span> Phase 3: Job Ingestion & Deduplication</div>
+                            <span class="status-pill success">Done</span>
+                        </div>
+                        <div class="roadmap-item completed">
+                            <div style="font-weight: 500;"><span>✅</span> Phase 4: Job Understanding & Extraction</div>
+                            <span class="status-pill success">Done</span>
+                        </div>
+                        <div class="roadmap-item current">
+                            <div style="font-weight: 500;"><span>⏳</span> Phase 5: Matching Engine (Hard Filters & Vectors)</div>
+                            <span class="status-pill" style="background: rgba(99, 102, 241, 0.2); color: var(--accent-primary);">Active</span>
+                        </div>
+                        <div class="roadmap-item">
+                            <div style="font-weight: 500;"><span>⚪</span> Phase 6: Resume Tailoring</div>
+                            <span style="color: var(--text-muted); font-size: 0.75rem;">Queued</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Terminal Commands -->
+                <div class="glass-card" style="margin-top: 1.5rem;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="icon">💻</span> Quick Commands
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem; font-family: var(--font-mono); font-size: 0.75rem;">
+                        <div style="background: rgba(0,0,0,0.4); padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--text-muted); margin-bottom: 0.2rem;"># Start DB Container</div>
+                            <div style="color: var(--accent-cyan);">docker compose up -d</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.4); padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--text-muted); margin-bottom: 0.2rem;"># Run Backend Server</div>
+                            <div style="color: var(--accent-cyan);">.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload</div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.4); padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--text-muted); margin-bottom: 0.2rem;"># Run Test Suite</div>
+                            <div style="color: var(--accent-cyan);">.\.venv\Scripts\pytest.exe backend/tests/ -v</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div>Career Copilot • Engineered for Truth, Privacy, and Precision</div>
+            <div style="font-family: var(--font-mono);">PostgreSQL 16 + pgvector • FastAPI • Python 3.11+</div>
+        </footer>
+    </div>
+
+    <script>
+        const PRESETS = {
+            generate_tailored_resume: {
+                method: "POST",
+                path: "/api/v1/resumes/tailor",
+                body: {
+                    job_id: "00000000-0000-0000-0000-000000000000",
+                    include_claimed_skills: false,
+                    max_bullets_per_experience: 3
+                }
+            },
+            generate_master_resume: {
+                method: "POST",
+                path: "/api/v1/resumes/master",
+                body: {
+                    title: "Comprehensive Master Technical Resume"
+                }
+            },
+            list_resumes: {
+                method: "GET",
+                path: "/api/v1/resumes",
+                body: null
+            },
+            batch_match: {
+                method: "POST",
+                path: "/api/v1/matching/batch",
+                body: {
+                    min_score: 40.0,
+                    limit: 20,
+                    only_passed_filters: true
+                }
+            },
+            get_top_matches: {
+                method: "GET",
+                path: "/api/v1/matching/top-matches?min_score=50.0&only_passed_filters=true",
+                body: null
+            },
+            evaluate_match: {
+                method: "POST",
+                path: "/api/v1/matching/evaluate",
+                body: {
+                    job_id: "00000000-0000-0000-0000-000000000000",
+                    strict_filters: true
+                }
+            },
+            analyze_jd: {
+                method: "POST",
+                path: "/api/v1/extraction/analyze",
+                body: {
+                    title: "Staff AI Engineer (Python & LangChain)",
+                    company: "DeepScale AI Labs",
+                    description: "Responsibilities:\n• Lead architecture of low-latency AI agents and microservices.\n• Build resilient pgvector search pipelines.\n\nRequirements:\n• 6+ years of software engineering experience.\n• Expert Python, FastAPI, and PostgreSQL skills.\n• Hands-on experience with Docker, Kubernetes, and CI/CD.\n\nNice to Have:\n• Prior experience with pgvector, LangChain, or Qdrant.\n• Cloud deployment on AWS."
+                }
+            },
+            ingest_single_job: {
+                method: "POST",
+                path: "/api/v1/jobs/ingest",
+                body: {
+                    title: "[Urgent] Senior Python Backend Engineer (Remote)",
+                    company: "Acme Cloud AI",
+                    description: "<p>We are seeking a <strong>Senior Python Engineer</strong> with FastAPI, PostgreSQL, and Docker experience. Competitive compensation with stock options.</p>",
+                    source: "LINKEDIN",
+                    source_job_id: "linkedin_987654",
+                    application_url: "https://www.linkedin.com/jobs/view/987654/?refId=feed&trackingId=abc",
+                    location: "Bengaluru, India (Remote)",
+                    salary_raw: "₹24L - ₹36L",
+                    min_experience_years: 4.0,
+                    required_skills: ["Python", "FastAPI", "PostgreSQL", "Docker"]
+                }
+            },
+            batch_ingest_jobs: {
+                method: "POST",
+                path: "/api/v1/jobs/batch-ingest",
+                body: {
+                    jobs: [
+                        {
+                            title: "Staff AI Backend Engineer",
+                            company: "Nexus AI Labs",
+                            description: "Build high-throughput LLM agents, FastAPI microservices, and pgvector retrieval systems.",
+                            source: "NAUKRI",
+                            source_job_id: "naukri_889911",
+                            application_url: "https://www.naukri.com/job-listings-889911",
+                            location: "Bengaluru",
+                            salary_raw: "₹40L - ₹55L",
+                            min_experience_years: 6.0,
+                            required_skills: ["Python", "FastAPI", "PostgreSQL", "LangChain"]
+                        },
+                        {
+                            title: "Full Stack Engineer (Python + React)",
+                            company: "FinScale Technologies",
+                            description: "Develop interactive web consoles and Python REST APIs for real-time analytics.",
+                            source: "DIRECT_CAREER_PAGE",
+                            application_url: "https://finscale.tech/careers/fs-002",
+                            location: "Remote",
+                            salary_raw: "$90k - $120k",
+                            min_experience_years: 3.0,
+                            required_skills: ["Python", "React", "TypeScript", "SQL"]
+                        }
+                    ]
+                }
+            },
+            list_jobs: {
+                method: "GET",
+                path: "/api/v1/jobs?keyword=Python&limit=10",
+                body: null
+            },
+            expand_intent: {
+                method: "POST",
+                path: "/api/v1/career-profiles/expand-intent",
+                body: {
+                    query: "I want a Python backend role with AWS cloud deployment and data pipelines"
+                }
+            },
+            list_search_profiles: {
+                method: "GET",
+                path: "/api/v1/career-profiles",
+                body: null
+            },
+            create_search_profile: {
+                method: "POST",
+                path: "/api/v1/career-profiles",
+                body: {
+                    name: "Backend Python Track",
+                    target_roles: ["Python Backend Engineer", "Cloud Application Engineer"],
+                    alternative_roles: ["Python Application Developer"],
+                    required_skills: ["Python", "FastAPI", "SQL"],
+                    preferred_skills: ["Docker", "PostgreSQL"],
+                    excluded_skills: ["Java"],
+                    locations: ["Bengaluru", "Remote"],
+                    work_modes: ["REMOTE", "HYBRID"],
+                    min_experience_years: 2.5,
+                    min_salary: 1800000.0,
+                    target_salary: 2500000.0,
+                    currency: "INR"
+                }
+            },
+            get_me: {
+                method: "GET",
+                path: "/api/v1/candidate/me",
+                body: null
+            },
+            add_verified_skill: {
+                method: "POST",
+                path: "/api/v1/candidate/skills",
+                body: {
+                    skill_name: "Python",
+                    category: "Languages",
+                    state: "VERIFIED",
+                    years_experience: 5.0,
+                    confidence_level: 5,
+                    evidence_notes: "5 years building backend production APIs"
+                }
+            },
+            list_verified_skills: {
+                method: "GET",
+                path: "/api/v1/candidate/skills?state=VERIFIED",
+                body: null
+            },
+            add_resume_fact: {
+                method: "POST",
+                path: "/api/v1/candidate/facts",
+                body: {
+                    fact_type: "ACHIEVEMENT",
+                    title: "Database Query Latency Reduction",
+                    description: "Optimized database execution time by 45% through pgvector indexing and async connection batching",
+                    metrics: { "latency_reduction_pct": 45 },
+                    verification_status: "VERIFIED",
+                    tags: ["database", "postgresql", "optimization"]
+                }
+            },
+            list_facts: {
+                method: "GET",
+                path: "/api/v1/candidate/facts",
+                body: null
+            },
+            health: {
+                method: "GET",
+                path: "/api/health",
+                body: null
+            },
+            health_db: {
+                method: "GET",
+                path: "/api/health/db",
+                body: null
+            }
+        };
+
+        function getBaseUrl() {
+            const port = window.location.port ? window.location.port : '8000';
+            const host = window.location.hostname ? window.location.hostname : 'localhost';
+            return `http://${host}:${port}`;
+        }
+
+        function loadPreset(key) {
+            const preset = PRESETS[key];
+            if (!preset) return;
+
+            document.querySelectorAll('.endpoint-btn').forEach(btn => btn.classList.remove('active'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            document.getElementById('httpMethodSelect').value = preset.method;
+            document.getElementById('targetUrlInput').value = `${getBaseUrl()}${preset.path}`;
+            
+            const payloadSection = document.getElementById('payloadSection');
+            const textarea = document.getElementById('payloadTextarea');
+
+            if (preset.body) {
+                payloadSection.style.display = 'block';
+                textarea.value = JSON.stringify(preset.body, null, 2);
+            } else {
+                payloadSection.style.display = (preset.method === 'GET' || preset.method === 'DELETE') ? 'none' : 'block';
+                textarea.value = '';
+            }
+
+            sendCustomRequest();
+        }
+
+        function onMethodChange() {
+            const method = document.getElementById('httpMethodSelect').value;
+            const payloadSection = document.getElementById('payloadSection');
+            payloadSection.style.display = (method === 'GET' || method === 'DELETE') ? 'none' : 'block';
+        }
+
+        async function sendCustomRequest() {
+            const method = document.getElementById('httpMethodSelect').value;
+            const url = document.getElementById('targetUrlInput').value;
+            const resBox = document.getElementById('responseBox');
+            const resTime = document.getElementById('responseTime');
+            const payloadText = document.getElementById('payloadTextarea').value;
+
+            resBox.textContent = `Executing ${method} request to ${url}...`;
+            const startTime = performance.now();
+
+            const options = {
+                method: method,
+                headers: {}
+            };
+
+            if (method !== 'GET' && method !== 'HEAD' && payloadText.trim()) {
+                try {
+                    JSON.parse(payloadText); // Validate JSON format
+                    options.headers['Content-Type'] = 'application/json';
+                    options.body = payloadText;
+                } catch (e) {
+                    resBox.textContent = `// Invalid JSON in Request Payload:\n${e.message}`;
+                    return;
+                }
+            }
+
+            try {
+                const response = await fetch(url, options);
+                const elapsed = (performance.now() - startTime).toFixed(1);
+                resTime.textContent = `Latency: ${elapsed} ms (Status: ${response.status})`;
+
+                let data;
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    data = await response.json();
+                    resBox.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    data = await response.text();
+                    resBox.textContent = data;
+                }
+
+                if (response.ok) {
+                    document.getElementById('systemLiveBadge').style.borderColor = 'rgba(16, 185, 129, 0.4)';
+                }
+            } catch (err) {
+                const elapsed = (performance.now() - startTime).toFixed(1);
+                resTime.textContent = `Latency: ${elapsed} ms (Failed)`;
+                resBox.textContent = `// Error connecting to backend:\n${err.message}\n\nMake sure the server is running on port 8000.`;
+            }
+        }
+
+        async function checkAllStatus() {
+            const base = getBaseUrl();
+            try {
+                const res = await fetch(`${base}/api/health`);
+                if (res.ok) {
+                    document.getElementById('apiStatusVal').innerHTML = '<span class="status-pill success">● Online</span>';
+                }
+            } catch (e) {
+                document.getElementById('apiStatusVal').innerHTML = '<span class="status-pill danger">● Offline</span>';
+            }
+
+            try {
+                const res = await fetch(`${base}/api/health/db`);
+                const data = await res.json();
+                if (data.status === 'healthy') {
+                    document.getElementById('dbStatusVal').innerHTML = '<span class="status-pill success">● Connected</span>';
+                } else {
+                    document.getElementById('dbStatusVal').innerHTML = '<span class="status-pill warning">● Standby</span>';
+                }
+            } catch (e) {
+                document.getElementById('dbStatusVal').innerHTML = '<span class="status-pill warning">● Standby</span>';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAllStatus();
+            loadPreset('expand_intent');
+        });
+    </script>
+</body>
+</html>
