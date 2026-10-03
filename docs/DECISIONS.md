@@ -33,3 +33,17 @@
 - **Context**: Generative AI tools frequently invent fake candidate experience or skills to match a job description.
 - **Decision**: Enforce a strict state machine on all skills (`VERIFIED`, `CLAIMED`, `LEARNING`, `TARGET`, `NOT_RELEVANT`). Only `VERIFIED` skills and facts can be written to generated resumes.
 - **Consequences**: Absolute truth integrity in generated job applications. Missing requirements are recorded as skill gaps, not fabricated experience.
+
+---
+
+## ADR-005: User Data Storage, Local Persistence & UI-Driven Search Criteria Control
+- **Date**: 2026-10-03
+- **Status**: Accepted
+- **Context**: Users need transparent data storage, automated parsing of uploaded resume PDFs into searchable keywords and target roles, local file preservation in the repository, and full UI agency to add/edit keywords, target roles, and search filters.
+- **Decision**: 
+  1. Store user-uploaded PDF resumes in `data/uploads/resumes/` and support local JSON snapshots/exports in `data/exports/`.
+  2. Parse uploaded resumes to extract structured facts, keywords, and inferred target titles, feeding them into `CandidateProfile` and `CareerProfile` search targets.
+  3. Support Docker PostgreSQL + pgvector for relational/semantic storage with local JSON export/import capability.
+  4. Provide full UI controls allowing users to interactively add, modify, and refine keywords, target job titles, locations, salary filters, and skill states.
+- **Consequences**: User data is preserved locally in the repo, fully customizable from the UI, and transparently synced with both the database and local files.
+

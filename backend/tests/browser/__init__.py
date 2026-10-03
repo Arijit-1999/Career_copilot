@@ -1,0 +1,1 @@
+"""Browser live tests package."""

@@ -63,6 +63,9 @@ asyncio_mode = "auto"
 pythonpath = [
     "backend"
 ]
+markers = [
+    "browser: marks tests that require a real Playwright browser binary (deselect with '-m not browser')"
+]
 
 [tool.ruff]
 line-length = 100

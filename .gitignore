@@ -71,6 +71,7 @@ docker-data/
 # Browser session secrets & artifacts
 session_data/
 playwright_profiles/
+.browser_sessions/
 downloads/
 
 # Operating System

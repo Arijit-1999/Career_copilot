@@ -16,6 +16,8 @@ import app.career_profiles.models  # Register career profile models with Base.me
 import app.jobs.models  # Register job models with Base.metadata
 import app.matching.models  # Register matching models with Base.metadata
 import app.resumes.models  # Register resumes models with Base.metadata
+import app.applications.models  # Register applications models with Base.metadata
+import app.tracking.models  # Register tracking models with Base.metadata
 
 
 # In-memory SQLite async engine for tests
@@ -59,6 +61,16 @@ async def override_get_db_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 fastapi_app.dependency_overrides[get_db_session] = override_get_db_session
+
+
+@pytest_asyncio.fixture
+async def db_session() -> AsyncGenerator[AsyncSession, None]:
+    """Yields an async test database session."""
+    async with TestingSessionLocal() as session:
+        try:
+            yield session
+        finally:
+            await session.close()
 
 
 @pytest_asyncio.fixture

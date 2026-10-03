@@ -31,6 +31,8 @@ async def lifespan(app: FastAPI):
         import app.jobs.models  # Register jobs tables
         import app.matching.models  # Register matching tables
         import app.resumes.models  # Register resumes tables
+        import app.applications.models  # Register applications tables
+        import app.tracking.models  # Register tracking tables
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database schema synchronized successfully")

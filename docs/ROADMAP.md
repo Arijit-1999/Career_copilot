@@ -60,24 +60,24 @@
 - [x] **RES-006**: Resume generation tests (unit & API integration tests).
 
 ## Phase 7: Browser Acquisition & Platform Adapters
-- [ ] **BRW-001**: Playwright browser controller foundation.
-- [ ] **BRW-002**: Persistent session management (safe auth).
-- [ ] **BRW-003**: Naukri job adapter.
-- [ ] **BRW-004**: LinkedIn job adapter.
-- [ ] **BRW-005**: Indeed job adapter.
-- [ ] **BRW-006**: Human takeover and CAPTCHA handoff mechanism.
+- [x] **BRW-001**: Playwright browser controller foundation.
+- [x] **BRW-002**: Persistent session management (safe auth).
+- [x] **BRW-003**: Naukri job adapter.
+- [x] **BRW-004**: LinkedIn job adapter.
+- [x] **BRW-005**: Indeed job adapter.
+- [x] **BRW-006**: Human takeover and CAPTCHA handoff mechanism.
 
 ## Phase 8: Application Assistance
-- [ ] **APP-001**: Application preparation workflow & form field mapper.
-- [ ] **APP-002**: Permitted automation vs human handoff router.
-- [ ] **APP-003**: Application lifecycle state machine (`DISCOVERED` $\to$ `OFFER`).
-- [ ] **APP-004**: Application assistant tests.
+- [x] **APP-001**: Application preparation workflow & form field mapper (`app/applications/form_mapper.py`).
+- [x] **APP-002**: Permitted automation vs human handoff router (`app/applications/router_logic.py`).
+- [x] **APP-003**: Application lifecycle state machine (`DISCOVERED` → `OFFER`) in `app/applications/models.py` + `enums.py`.
+- [x] **APP-004**: Application assistant REST API (`app/applications/router.py`) + 70-test suite.
 
 ## Phase 9: Tracking, Analytics & Feedback Loop
-- [ ] **TRK-001**: Application tracking database models & API.
-- [ ] **TRK-002**: Outcome logger & response tracker.
-- [ ] **TRK-003**: Search performance & skill gap analytics.
-- [ ] **TRK-004**: Outcome analytics tests.
+- [x] **TRK-001**: Application tracking database models & API (`app/tracking/models.py`, `schemas.py`, `service.py`, `router.py`).
+- [x] **TRK-002**: Outcome logger & response tracker (recruiter response, rejection reasons, interview rounds, timeline).
+- [x] **TRK-003**: Search performance & skill gap analytics (match score distributions, gap trends, response velocity).
+- [x] **TRK-004**: Outcome analytics tests (14 unit & API integration tests, 100% pass rate).
 
 ## Phase 10: Hardening, Security & Stabilization
 - [ ] **STAB-001**: LLM token tracking & cost control limits.

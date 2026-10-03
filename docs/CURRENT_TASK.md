@@ -1,10 +1,10 @@
 # Current Task
 
-## Task ID: BRW-001 (Active)
-## Phase: Phase 7 — Browser Acquisition & Platform Adapters
+## Task ID: STAB-001 (Active)
+## Phase: Phase 10 — Hardening, Security & Stabilization
 
 ### Objective
-Implement Playwright-based browser acquisition infrastructure, safe persistent sessions (cookies/session storage), job search adapters for platforms (Naukri, LinkedIn, Indeed), and human takeover / CAPTCHA handoff protocols.
+Implement LLM token tracking & cost control limits, security audit (credentials, session cookies, input sanitization), end-to-end integration workflow verification, and final operational guide.
 
 ### Status
 - [x] **Phase 0 (Foundation)**: COMPLETED (12/12 tasks).
@@ -14,17 +14,17 @@ Implement Playwright-based browser acquisition infrastructure, safe persistent s
 - [x] **Phase 4 (Job Understanding & Extraction)**: COMPLETED (4/4 tasks).
 - [x] **Phase 5 (Matching Engine)**: COMPLETED (8/8 tasks).
 - [x] **Phase 6 (Resume Tailoring Engine)**: COMPLETED (6/6 tasks).
-  - Implemented `TailoredResume` database model and schemas (`app/resumes/models.py`, `app/resumes/schemas.py`).
-  - Built deterministic `FactSelector` targeting JD skills & achievements (`app/resumes/fact_selector.py`).
-  - Built zero-hallucination `TruthValidator` checking 100% of skills and employer claims against verified candidate data (`app/resumes/validator.py`).
-  - Built ATS Markdown `ResumeGenerator` (`app/resumes/generator.py`).
-  - Implemented resume service and API endpoints (`POST /api/v1/resumes/tailor`, `POST /api/v1/resumes/master`, `GET /api/v1/resumes/{id}`, `PUT /api/v1/resumes/{id}`, `GET /api/v1/resumes`).
-  - Added unit & API integration tests with 100% pass rate (46/46 passing).
-- [ ] **Next Task: BRW-001 to BRW-006**: Playwright controller, platform adapters (Naukri, LinkedIn, Indeed), and CAPTCHA handoff.
+- [x] **Phase 7 (Browser Acquisition & Platform Adapters)**: COMPLETED (6/6 tasks).
+- [x] **Phase 8 (Application Assistance)**: COMPLETED (4/4 tasks).
+- [x] **Phase 9 (Tracking, Analytics & Feedback Loop)**: COMPLETED (4/4 tasks).
+  - TRK-001: `app/tracking/` models (`ApplicationTimelineEvent`, `ApplicationInterview`, `ApplicationOutcome`), schemas, service, and KanBan board builder.
+  - TRK-002: Outcome logger, response velocity tracker, and multi-round interview scheduler.
+  - TRK-003: Recruitment funnel conversion aggregator, skill gap analyzer, and match score vs outcome correlation analytics.
+  - TRK-004: 14 unit and API integration tests (206/206 test suite 100% pass rate).
+- [ ] **Next Task: STAB-001 to STAB-004**: Hardening, Security & Stabilization.
 
-### Acceptance Criteria for BRW-001 to BRW-003
-- [ ] Implement Playwright browser controller wrapper with stealth headers and anti-detection measures (`app/browser/controller.py`).
-- [ ] Build persistent session manager for authenticated browser profiles (`app/browser/session.py`).
-- [ ] Implement base Job Platform Adapter interface (`app/browser/adapters/base.py`).
-- [ ] Implement Naukri job search & extraction adapter (`app/browser/adapters/naukri.py`).
-- [ ] Add unit and mock integration tests under `backend/tests/unit/test_browser.py`.
+### Acceptance Criteria for STAB-001 to STAB-004
+- [ ] **STAB-001**: LLM token tracking & cost control limits (`app/llm/` telemetry, budget checks, rate limits).
+- [ ] **STAB-002**: Security audit (credential masking, session cookie encryption/permissions, input sanitization).
+- [ ] **STAB-003**: End-to-end integration workflow test (Candidate -> Target -> Scraping -> Match -> Tailored Resume -> Application -> Tracking -> Analytics).
+- [ ] **STAB-004**: Final V1 documentation and operational guide.

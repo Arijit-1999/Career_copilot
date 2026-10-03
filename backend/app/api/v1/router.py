@@ -5,6 +5,8 @@ from app.jobs.router import router as jobs_router
 from app.extraction.router import router as extraction_router
 from app.matching.router import router as matching_router
 from app.resumes.router import router as resumes_router
+from app.applications.router import router as applications_router
+from app.tracking.router import router as tracking_router
 
 api_v1_router = APIRouter(prefix="/v1")
 
@@ -15,4 +17,5 @@ api_v1_router.include_router(jobs_router, prefix="/jobs", tags=["Jobs"])
 api_v1_router.include_router(extraction_router, prefix="/extraction", tags=["Job Understanding & Skill Extraction"])
 api_v1_router.include_router(matching_router, prefix="/matching", tags=["Matching Engine"])
 api_v1_router.include_router(resumes_router, prefix="/resumes", tags=["Resume Tailoring & Intelligence"])
-# api_v1_router.include_router(applications_router, prefix="/applications", tags=["Applications"])
+api_v1_router.include_router(applications_router, prefix="/applications", tags=["Application Assistance"])
+api_v1_router.include_router(tracking_router, prefix="", tags=["Tracking & Analytics"])
